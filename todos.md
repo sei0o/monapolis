@@ -1,0 +1,50 @@
+# Todo
+
+- layout
+- index
+- User
+  - register
+  - /register
+  - login.erb
+  - /login
+    - log in with github
+    - log in with twitter
+    - log in with vkontakte
+  - delete
+  - /delete
+  - /profile
+  - /settings
+  - settings
+  - profile Edit
+    - address
+    - name
+- DB
+  - setup mysql
+  - activerecord
+    - model
+- setup monacoind
+- monacoinrpc.rb?
+- Cities
+  - Create
+  - delete
+  - union
+  - /(city)
+  - /cities
+- Threads
+  - model
+  - /(city)/(thread-name)
+  - up / down
+  - favorite
+  - Share
+  - Create
+  - delete
+- Responses
+  - Create
+  - Update
+    - revisions / histories
+  - Delete
+  - up / down
+  - sending mona
+  - reply
+  - sage/age
+- API
