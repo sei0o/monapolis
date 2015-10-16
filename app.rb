@@ -3,7 +3,7 @@ require 'sinatra/reloader' if development?
 require 'active_record'
 require 'yaml'
 require 'erb'
-require 'models/user'
+require_relative 'models/user'
 
 db_config = YAML.load ERB.new(File.read("database.yml")).result
 ActiveRecord::Base.establish_connection db_config["development"]
