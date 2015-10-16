@@ -1,0 +1,83 @@
+html, body
+  height 100%
+  margin 0
+  padding 0
+
+a
+  &, &:link, &:visited
+    color #6491cc
+    transition .2s
+    text-decoration none
+  &:hover, &:focus, &:active
+    color #345e96
+    text-decoration underline
+
+body
+  background-color #89acd9
+
+#container
+  width 80%
+  margin 0 auto
+  background-color white
+  height 100%
+  font-family "mplus-1p-regular", Helvetica, sans-serif
+  color #27466f
+
+#page_header
+  background-color #4076bd
+  color white
+  height 3rem
+  padding 0 10px
+
+#brand
+  display inline
+  line-height 3rem
+
+#user_navbar
+  display inline
+  ul
+    display inline
+    padding 0
+    margin 0
+    float right
+    &:after
+      clear both
+    li
+      display inline-block
+      height 3rem
+      line-height 3rem
+      padding 0 20px
+      transition .3s
+      &:hover
+        background-color #6491cc
+
+#page_navbar
+  display block
+  ul
+    padding 0
+    margin 0
+    li
+      box-sizing border-box
+      display inline-block
+      width 25%
+      background-color #345e96
+      height 1.5rem
+      line-height 1.5rem
+      border-right solid 2px #27466f
+      text-align center
+      transition .3s
+      &:hover
+        background-color #6491cc
+  a
+    display inline-block
+    width 100%
+    &, &:link, &:visited, &:focus, &:active, &:hover
+      color white
+      text-decoration none
+
+#brand
+  margin 0
+  padding 0
+
+main
+  padding 10px

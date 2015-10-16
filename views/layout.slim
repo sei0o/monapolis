@@ -2,10 +2,24 @@ doctype html
 html
   head
     meta charset="utf-8"
-    link rel="stylesheet" type="text/css" href="index.css"
+    link rel="stylesheet" type="text/css" href="/stylesheet/index.css"
     title Monapolis
 
   body
-    div.container
+    div#container
+      header#page_header
+        h1#brand Monapolis
+        nav#user_navbar
+          ul
+            li ログイン
+            li 新規登録
+      nav#page_navbar
+        ul
+          li 
+            a href="/" Top
+          li Threads
+          li City
+          li 
+            a href="/about" About
       main
         == yield
