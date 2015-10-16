@@ -1,11 +1,10 @@
 # Todo
 
-- layout
-- index
 - User
   - register
   - /register
   - login.erb
+  - reputation?
   - /login
     - log in with github
     - log in with twitter
@@ -18,10 +17,6 @@
   - profile Edit
     - address
     - name
-- DB
-  - setup mysql
-  - activerecord
-    - model
 - setup monacoind
 - monacoinrpc.rb?
 - Cities
