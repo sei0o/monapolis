@@ -2,6 +2,6 @@ development:
   adapter: mysql2
   encoding: utf8
   database: monapolis
-  username: root
-  password: 
+  username: president
+  password: <%= ENV["MONAPOLIS_DB_PASSWORD"] %>
   host: localhost
