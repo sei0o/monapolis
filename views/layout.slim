@@ -11,10 +11,14 @@ html
         h1#brand Monapolis
         nav#user_navbar
           ul
-            li
-              a href="/login" ログイン
-            li
-              a href="/register" 新規登録
+            - if login?
+              li
+                a href="/#{login_user.name}" = login_user.name
+            - else
+              li
+                a href="/login" ログイン
+              li
+                a href="/register" 新規登録
       nav#page_navbar
         ul
           li 

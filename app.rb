@@ -28,6 +28,15 @@ class Monapolis < Sinatra::Base
     def t *args
       I18n.t *args
     end
+
+    def login?
+      !!session[:user_name]
+    end
+
+    def login_user
+      login? ? User.find_by(name: session[:user_name])
+             : nil
+    end
   end
 
   get "/" do
@@ -48,7 +57,8 @@ class Monapolis < Sinatra::Base
     if user.validate_password_length params[:password]
       user.hash_password params[:password]
       if user.save
-        redirect "/#{user.name}"
+        flash[:notice] = t "user.request_login"
+        redirect "/login"
       else
         flash[:warning] = user.errors.full_messages
         redirect back
@@ -68,6 +78,7 @@ class Monapolis < Sinatra::Base
     if user
       if user.auth params[:password]
         flash[:success] = t "user.auth_succeeded"
+        session[:user_name] = user.name
         redirect "/#{user.name}"
       else
         flash[:warning] = t "user.auth_failed"
@@ -77,5 +88,10 @@ class Monapolis < Sinatra::Base
       flash[:warning] = t "user.not_found"
       redirect back
     end
+  end
+
+  get "/*" do |name|
+    @user = User.find_by name: name.downcase
+    slim :user
   end
 end
