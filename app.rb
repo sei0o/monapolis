@@ -58,4 +58,24 @@ class Monapolis < Sinatra::Base
       redirect back
     end
   end
+
+  get "/login" do
+    slim :login
+  end
+
+  post "/login" do
+    user = User.find_by name: params[:name].downcase
+    if user
+      if user.auth params[:password]
+        flash[:success] = t "user.auth_succeeded"
+        redirect "/#{user.name}"
+      else
+        flash[:warning] = t "user.auth_failed"
+        redirect back
+      end
+    else
+      flash[:warning] = t "user.not_found"
+      redirect back
+    end
+  end
 end

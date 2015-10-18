@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates :password, presence: true
   validates :password_salt, presence: true
 
-  def hash_password p 
+  def hash_password p
     self.password_salt = BCrypt::Engine.generate_salt
     self.password = BCrypt::Engine.hash_secret p, self.password_salt
   end
@@ -19,4 +19,7 @@ class User < ActiveRecord::Base
     true
   end
 
+  def auth p
+    self.password == BCrypt::Engine.hash_secret(p, self.password_salt)
+  end
 end
