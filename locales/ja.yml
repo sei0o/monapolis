@@ -1,0 +1,13 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        name: ユーザー名
+        password: パスワード
+    errors:
+      messages:
+        blank: "が入力されていません。"
+        invalid: "が不正な値です。"
+        taken: "はすでに使用されています。"

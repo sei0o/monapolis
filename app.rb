@@ -5,7 +5,11 @@ require 'active_record'
 require 'yaml'
 require 'erb'
 require 'bcrypt'
+require 'i18n'
 require_relative 'models/user'
+
+I18n.load_path += Dir[File.join(File.dirname(__FILE__), 'locales', '*.yml').to_s]
+I18n.default_locale = :ja
 
 db_config = YAML.load ERB.new(File.read("database.yml")).result
 ActiveRecord::Base.establish_connection db_config["development"]
@@ -18,6 +22,12 @@ class Monapolis < Sinatra::Base
   configure do
     enable :sessions
     register Sinatra::Flash
+  end
+
+  helpers do
+    def t *args
+      I18n.t *args
+    end
   end
 
   get "/" do
