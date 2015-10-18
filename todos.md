@@ -3,6 +3,7 @@
 - User
   - register
   - /register
+  - i18n(japanese)
   - login.erb
   - reputation?
   - /login
