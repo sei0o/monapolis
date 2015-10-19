@@ -6,6 +6,8 @@ require 'yaml'
 require 'erb'
 require 'bcrypt'
 require 'i18n'
+require 'unirest'
+require 'octokit'
 require_relative 'models/user'
 
 I18n.load_path += Dir[File.join(File.dirname(__FILE__), 'locales', '*.yml').to_s]
@@ -17,6 +19,7 @@ ActiveRecord::Base.establish_connection db_config["development"]
 class Monapolis < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
+    set :config, YAML.load( ERB.new(File.read("config.yml")).result )
   end
 
   configure do
@@ -87,6 +90,49 @@ class Monapolis < Sinatra::Base
     else
       flash[:warning] = t "user.not_found"
       redirect back
+    end
+  end
+
+  post "/auth_third" do
+    case params[:login_with]
+    when "github"
+      redirect "https://github.com/login/oauth/authorize?client_id=#{settings.config['github_client_id']}"
+    end
+  end
+
+  get "/github_callback" do
+    response = Unirest.post("https://github.com/login/oauth/access_token", headers: {
+        "Accept" => "application/json"
+      }, parameters: {
+        code: params[:code],
+        client_id: settings.config["github_client_id"],
+        client_secret: settings.config["github_client_secret"]
+      }).body
+
+    github = Octokit::Client.new access_token: response["access_token"]
+    p github.user
+
+    if user = User.find_by(github_name: github.user.name)
+      session[:user_name] = user.name
+      flash[:success] = t "user.auth_succeeded"
+      redirect "/#{user.name}"
+    else
+      u = User.new(
+        name: github.user.name,
+        github_name: github.user.name,
+        password: "none",
+        password_salt: "none"
+      )
+
+      if u.save
+        flash[:success] = t "user.auth_succeeded"
+        session[:user_name] = user.name
+        redirect "/#{u.name}"
+      else
+        flash[:warning] = t "user.wtf"
+        session[:user_name] = user.name
+        redirect "/register"
+      end
     end
   end
 

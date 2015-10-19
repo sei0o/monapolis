@@ -1,12 +1,12 @@
 # Todo
 
+- partial template
 - User
-  - register
-  - /register
-  - login.erb
   - reputation?
   - /login
     - log in with github
+      - 紐付け
+      - 登録
     - log in with twitter
     - log in with vkontakte
   - delete

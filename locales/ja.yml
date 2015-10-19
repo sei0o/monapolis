@@ -1,9 +1,10 @@
 ja:
   user:
-    not_found: "ユーザーが見つかりませんでした。"
+    not_found: "ユーザーが見つかりませんでした。先に登録してください。"
     auth_failed: "ユーザー名またはパスワードが違います。"
     auth_succeeded: "ログインに成功しました。"
     request_login: "ログインしてください。"
+    wtf: "謎のエラーが発生しました。"
   activerecord:
     models:
       user: ユーザー

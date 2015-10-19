@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151016020145) do
+ActiveRecord::Schema.define(version: 20151018175745) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name",          limit: 255,   null: false
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20151016020145) do
     t.string   "password_salt", limit: 255,   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "github_name",   limit: 255
   end
 
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
