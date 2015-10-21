@@ -5,6 +5,7 @@ ja:
     auth_succeeded: "ログインに成功しました。"
     request_login: "ログインしてください。"
     wtf: "謎のエラーが発生しました。"
+    settings_succeeded: "保存しました。"
   activerecord:
     models:
       user: ユーザー

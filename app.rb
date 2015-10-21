@@ -40,6 +40,13 @@ class Monapolis < Sinatra::Base
       login? ? User.find_by(name: session[:user_name])
              : nil
     end
+
+    def user_only
+      unless login?
+        flash[:warning] = t "user.request_login"
+        redirect back
+      end
+    end
   end
 
   get "/" do
@@ -136,8 +143,37 @@ class Monapolis < Sinatra::Base
     end
   end
 
+  get "/settings" do
+    user_only
+
+    slim :settings
+  end
+
+  post "/settings" do
+    user_only
+
+    user = login_user
+
+    user.name = params[:name].downcase
+
+    if user.save
+      session[:user_name] = user.name
+      flash[:success] = t "user.settings_succeeded"
+      redirect "/#{user.name}"
+    else
+      flash[:warning] = t "user.wtf"
+      redirect back
+    end
+  end
+
   get "/*" do |name|
     @user = User.find_by name: name.downcase
+
+    unless @user
+      flash[:warning] = t "user.not_found"
+      redirect back
+    end
+
     slim :user
   end
 end

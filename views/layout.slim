@@ -14,6 +14,8 @@ html
             - if login?
               li
                 a href="/#{login_user.name}" = login_user.name
+              li
+                a href="/settings" 設定
             - else
               li
                 a href="/login" ログイン
