@@ -25,11 +25,15 @@ html
         ul
           li 
             a href="/" Top
-          li Threads
           li
-            a href="/c" Cities
+            a href="/c" City
           li 
             a href="/about" About
+      nav#city_navbar
+        ul
+          - @cities.each do |city|
+            li
+              a href="/c/#{city.code}" = city.name
       main
         == styled_flash
         == yield

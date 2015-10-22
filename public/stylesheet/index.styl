@@ -65,7 +65,7 @@ body
     li
       box-sizing border-box
       display inline-block
-      width 25%
+      width 33.33%
       background-color #345e96
       height 1.5rem
       line-height 1.5rem
@@ -77,6 +77,26 @@ body
   a
     display inline-block
     width 100%
+    &, &:link, &:visited, &:focus, &:active, &:hover
+      color white
+      text-decoration none
+
+#city_navbar
+  display block
+  ul
+    padding 0
+    margin 0
+    background-color #4076bd
+    li
+      display inline-block
+      height 1.5rem
+      line-height 1.5rem
+      transition .3s
+      padding 0 5px
+      &:hover
+        background-color #6491cc
+  a
+    display inline-block
     &, &:link, &:visited, &:focus, &:active, &:hover
       color white
       text-decoration none

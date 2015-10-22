@@ -83,7 +83,7 @@ body {
 #page_navbar ul li {
   box-sizing: border-box;
   display: inline-block;
-  width: 25%;
+  width: 33.33%;
   background-color: #345e96;
   height: 1.5rem;
   line-height: 1.5rem;
@@ -104,6 +104,36 @@ body {
 #page_navbar a:focus,
 #page_navbar a:active,
 #page_navbar a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+#city_navbar {
+  display: block;
+}
+#city_navbar ul {
+  padding: 0;
+  margin: 0;
+  background-color: #4076bd;
+}
+#city_navbar ul li {
+  display: inline-block;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  transition: 0.3s;
+  padding: 0 5px;
+}
+#city_navbar ul li:hover {
+  background-color: #6491cc;
+}
+#city_navbar a {
+  display: inline-block;
+}
+#city_navbar a,
+#city_navbar a:link,
+#city_navbar a:visited,
+#city_navbar a:focus,
+#city_navbar a:active,
+#city_navbar a:hover {
   color: #fff;
   text-decoration: none;
 }

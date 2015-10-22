@@ -9,6 +9,9 @@ ja:
   city:
     create_failed: "cityの設立に失敗しました。資金不足?"
     create_succeeded: "cityの設立に成功しました。"
+  topic:
+    create_failed: "トピック作成に失敗しました。"
+    create_succeeded: "トピック作成に成功しました。"
   activerecord:
     models:
       user: ユーザー

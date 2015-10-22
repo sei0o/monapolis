@@ -1,6 +1,7 @@
 # Todo
 
 - partial template
+- friendly forwarding
 - User
   - reputation?
   - /login
@@ -16,18 +17,12 @@
 - setup monacoind
 - monacoinrpc.rb?
 - Cities
-  - Create
   - delete
   - union
-  - /(city)
-  - /cities
-- Threads
-  - model
-  - /(city)/(thread-name)
-  - up / down
+- Topics
+  - up / down?
   - favorite
   - Share
-  - Create
   - delete
 - Responses
   - Create
@@ -35,6 +30,7 @@
     - revisions / histories
   - Delete
   - up / down
+    - arashi
   - sending mona
   - reply
   - sage/age

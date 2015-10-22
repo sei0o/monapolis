@@ -10,6 +10,7 @@ require 'unirest'
 require 'octokit'
 require_relative 'models/user'
 require_relative 'models/city'
+require_relative 'models/topic'
 
 I18n.load_path += Dir[File.join(File.dirname(__FILE__), 'locales', '*.yml').to_s]
 I18n.default_locale = :ja
@@ -48,6 +49,10 @@ class Monapolis < Sinatra::Base
         redirect "/login"
       end
     end
+  end
+
+  before do
+    @cities = City.all
   end
 
   get "/" do
@@ -134,11 +139,11 @@ class Monapolis < Sinatra::Base
 
       if u.save
         flash[:success] = t "user.auth_succeeded"
-        session[:user_name] = user.name
+        session[:user_name] = u.name
         redirect "/#{u.name}"
       else
         flash[:warning] = t "user.wtf"
-        session[:user_name] = user.name
+        session[:user_name] = u.name
         redirect "/register"
       end
     end
@@ -190,6 +195,31 @@ class Monapolis < Sinatra::Base
       flash[:warning] = city.errors.full_messages
       redirect back
     end
+  end
+
+  get "/c/:code/new" do |code|
+    @city = City.find_by code: code.downcase
+    slim :new_topic
+  end
+
+  post "/c/:code/new" do |code|
+    city = City.find_by code: code.downcase
+    topic = Topic.new title: params[:title], id: city.topics.size
+    topic.city = city
+
+    if topic.save
+      flash[:success] = t "topic.create_succeeded"
+      redirect "/c/#{city.code}/#{topic.id}"
+    else
+      flash[:warning] = topic.errors.full_messages
+      redirect back
+    end
+  end
+
+  get "/c/:code/:id" do |code, topic_id|
+    @city = City.find_by code: code.downcase
+    @topic = Topic.where id: topic_id, city_id: @city.id
+    slim :topic
   end
 
   get "/c/*" do |code|
