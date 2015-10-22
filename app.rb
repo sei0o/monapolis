@@ -204,7 +204,8 @@ class Monapolis < Sinatra::Base
 
   post "/c/:code/new" do |code|
     city = City.find_by code: code.downcase
-    topic = Topic.new title: params[:title], id: city.topics.size
+    topic = Topic.new title: params[:title]
+    topic.id = city.topics.size
     topic.city = city
 
     if topic.save
@@ -218,7 +219,7 @@ class Monapolis < Sinatra::Base
 
   get "/c/:code/:id" do |code, topic_id|
     @city = City.find_by code: code.downcase
-    @topic = Topic.where id: topic_id, city_id: @city.id
+    @topic = Topic.find_by id: topic_id, city_id: @city.id
     slim :topic
   end
 
