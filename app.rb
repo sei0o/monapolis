@@ -9,6 +9,7 @@ require 'i18n'
 require 'unirest'
 require 'octokit'
 require_relative 'models/user'
+require_relative 'models/city'
 
 I18n.load_path += Dir[File.join(File.dirname(__FILE__), 'locales', '*.yml').to_s]
 I18n.default_locale = :ja
@@ -44,7 +45,7 @@ class Monapolis < Sinatra::Base
     def user_only
       unless login?
         flash[:warning] = t "user.request_login"
-        redirect back
+        redirect "/login"
       end
     end
   end
@@ -164,6 +165,36 @@ class Monapolis < Sinatra::Base
       flash[:warning] = t "user.wtf"
       redirect back
     end
+  end
+
+  get "/c" do
+    @cities = City.all
+    slim :cities
+  end
+
+  get "/c/new" do
+    user_only
+
+    slim :new_city
+  end
+
+  post "/c/new" do
+    user_only
+
+    city = City.new name: params[:name], code: params[:code].downcase
+
+    if city.save
+      flash[:success] = t "city.create_succeeded"
+      redirect "/c/#{city.code}"
+    else
+      flash[:warning] = city.errors.full_messages
+      redirect back
+    end
+  end
+
+  get "/c/*" do |code|
+    @city = City.find_by code: code.downcase
+    slim :city
   end
 
   get "/*" do |name|

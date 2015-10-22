@@ -6,13 +6,20 @@ ja:
     request_login: "ログインしてください。"
     wtf: "謎のエラーが発生しました。"
     settings_succeeded: "保存しました。"
+  city:
+    create_failed: "cityの設立に失敗しました。資金不足?"
+    create_succeeded: "cityの設立に成功しました。"
   activerecord:
     models:
       user: ユーザー
+      city: city
     attributes:
       user:
         name: ユーザー名
         password: パスワード
+      city:
+        name: city名
+        code: cityコード
     errors:
       messages:
         blank: "が入力されていません。"

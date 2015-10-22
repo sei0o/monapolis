@@ -9,11 +9,10 @@
   - delete
   - /delete
   - /profile
-  - /settings
-  - settings
   - profile Edit
     - address
-    - name
+    - description
+  - permission
 - setup monacoind
 - monacoinrpc.rb?
 - Cities
