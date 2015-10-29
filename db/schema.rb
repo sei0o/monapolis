@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022095519) do
+ActiveRecord::Schema.define(version: 20151028091503) do
 
   create_table "cities", force: :cascade do |t|
     t.string   "name",        limit: 255,   null: false
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20151022095519) do
 
   add_index "cities", ["code"], name: "index_cities_on_code", unique: true, using: :btree
   add_index "cities", ["name"], name: "index_cities_on_name", unique: true, using: :btree
+
+  create_table "responses", force: :cascade do |t|
+    t.text     "body",          limit: 65535,                                        null: false
+    t.decimal  "received_mona",               precision: 15, scale: 8, default: 0.0, null: false
+    t.integer  "user_id",       limit: 4,                                            null: false
+    t.integer  "topic_id",      limit: 4,                                            null: false
+    t.integer  "city_id",       limit: 4,                                            null: false
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
+  end
 
   create_table "topics", force: :cascade do |t|
     t.string   "title",      limit: 255, null: false

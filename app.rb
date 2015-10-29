@@ -11,6 +11,7 @@ require 'octokit'
 require_relative 'models/user'
 require_relative 'models/city'
 require_relative 'models/topic'
+require_relative 'models/response'
 
 I18n.load_path += Dir[File.join(File.dirname(__FILE__), 'locales', '*.yml').to_s]
 I18n.default_locale = :ja
@@ -30,6 +31,8 @@ class Monapolis < Sinatra::Base
   end
 
   helpers do
+    include Rack::Utils
+
     def t *args
       I18n.t *args
     end
@@ -48,6 +51,10 @@ class Monapolis < Sinatra::Base
         flash[:warning] = t "user.request_login"
         redirect "/login"
       end
+    end
+
+    def escape_nl2br str
+      escape_html(str).gsub(/\r\n|\n|\r/, "<br>")
     end
   end
 
@@ -217,9 +224,30 @@ class Monapolis < Sinatra::Base
     end
   end
 
+  post "/c/:code/:id/response" do |code, topic_id|
+    user_only
+
+    city = City.find_by code: code.downcase
+    topic = Topic.find_by id: topic_id, city_id: city.id
+
+    response = Response.new body: params[:body]
+    response.user_id = login_user.id
+    response.topic_id = topic.id
+    response.city_id = city.id
+
+    if response.save
+      flash[:success] = t "response.post_succeeded"
+      redirect back
+    else
+      flash[:warning] = topic.errors.full_messages
+      redirect back
+    end
+  end
+
   get "/c/:code/:id" do |code, topic_id|
     @city = City.find_by code: code.downcase
     @topic = Topic.find_by id: topic_id, city_id: @city.id
+    @responses = Response.where(city_id: @city.id, topic_id: @topic.id).order("id ASC")
     slim :topic
   end
 

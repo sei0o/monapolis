@@ -1,1 +1,14 @@
 h1 = @topic.title
+
+ul#responses
+  - @responses.each do |r|
+    li.response
+      header
+        span.response_id = r.id
+        span.response_name = r.user.name
+      div == escape_nl2br(r.body)
+      
+form action="/c/#{@city.code}/#{@topic.id}/response" method="POST"
+  textarea name="body" placeholder="MonapolisってFacebookのにおいがする" cols="50" rows="5"
+  br
+  input type="submit" value="投稿"

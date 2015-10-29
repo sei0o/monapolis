@@ -24,7 +24,6 @@ body {
   width: 80%;
   margin: 0 auto;
   background-color: #fff;
-  height: 100%;
   font-family: "mplus-1p-regular", Helvetica, sans-serif;
   color: #27466f;
 }
@@ -143,4 +142,23 @@ body {
 }
 main {
   padding: 10px;
+}
+#responses {
+  list-style-type: none;
+  padding: 0;
+}
+.response {
+  margin-top: 2rem;
+}
+.response header .response_id {
+  box-sizing: border-box;
+  background-color: #345e96;
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+.response div {
+  margin-top: 1rem;
+  margin-left: 1rem;
 }

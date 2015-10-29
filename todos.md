@@ -2,6 +2,7 @@
 
 - partial template
 - friendly forwarding
+- form: required attribute
 - User
   - reputation?
   - /login
@@ -28,7 +29,7 @@
   - Create
   - Update
     - revisions / histories
-  - Delete
+  - Delete?
   - up / down
     - arashi
   - sending mona
