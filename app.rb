@@ -212,7 +212,6 @@ class Monapolis < Sinatra::Base
   post "/c/:code/new" do |code|
     city = City.find_by code: code.downcase
     topic = Topic.new title: params[:title]
-    topic.id = city.topics.size
     topic.city = city
 
     if topic.save
@@ -228,12 +227,11 @@ class Monapolis < Sinatra::Base
     user_only
 
     city = City.find_by code: code.downcase
-    topic = Topic.find_by id: topic_id, city_id: city.id
+    topic = Topic.find_by id: topic_id
 
     response = Response.new body: params[:body]
     response.user_id = login_user.id
     response.topic_id = topic.id
-    response.city_id = city.id
 
     if response.save
       flash[:success] = t "response.post_succeeded"
@@ -247,7 +245,7 @@ class Monapolis < Sinatra::Base
   get "/c/:code/:id" do |code, topic_id|
     @city = City.find_by code: code.downcase
     @topic = Topic.find_by id: topic_id, city_id: @city.id
-    @responses = Response.where(city_id: @city.id, topic_id: @topic.id).order("id ASC")
+    @responses = Response.where(topic_id: topic_id).order("id ASC")
     slim :topic
   end
 

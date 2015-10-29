@@ -1,10 +1,10 @@
 h1 = @topic.title
 
 ul#responses
-  - @responses.each do |r|
+  - @responses.each.with_index(1) do |r, i|
     li.response
       header
-        span.response_id = r.id
+        span.response_id = i
         span.response_name = r.user.name
       div == escape_nl2br(r.body)
       

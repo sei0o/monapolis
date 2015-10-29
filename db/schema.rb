@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028091503) do
+ActiveRecord::Schema.define(version: 20151029095439) do
 
   create_table "cities", force: :cascade do |t|
     t.string   "name",        limit: 255,   null: false
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20151028091503) do
     t.decimal  "received_mona",               precision: 15, scale: 8, default: 0.0, null: false
     t.integer  "user_id",       limit: 4,                                            null: false
     t.integer  "topic_id",      limit: 4,                                            null: false
-    t.integer  "city_id",       limit: 4,                                            null: false
     t.datetime "created_at",                                                         null: false
     t.datetime "updated_at",                                                         null: false
   end

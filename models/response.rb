@@ -8,5 +8,4 @@ class Response < ActiveRecord::Base
   validates :received_mona, presence: true
   validates :user_id, presence: true
   validates :topic_id, presence: true
-  validates :city_id, presence: true
 end
