@@ -1,1 +1,14 @@
 h1 = @city.name
+
+table
+  thead
+    tr
+      th Name
+      th Mona
+  tbody
+    - @city.topics.each do |topic|
+      tr
+        td 
+          a href="/c/#{@city.code}/#{topic.id}" = topic.title
+        td 
+          = topic.responses.inject(0.0) {|sum, r| sum += r.received_mona } 

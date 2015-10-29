@@ -9,6 +9,6 @@ ul#responses
       div == escape_nl2br(r.body)
       
 form action="/c/#{@city.code}/#{@topic.id}/response" method="POST"
-  textarea name="body" placeholder="MonapolisってFacebookのにおいがする" cols="50" rows="5"
+  textarea name="body" placeholder="MonapolisってFacebookのにおいがする" cols="50" rows="5" required="required"
   br
   input type="submit" value="投稿"
