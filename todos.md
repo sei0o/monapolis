@@ -2,9 +2,9 @@
 
 - partial template
 - friendly forwarding
-- form: required attribute
 - User
   - reputation?
+  - obi
   - /login
     - log in with twitter
     - log in with vkontakte
@@ -16,7 +16,11 @@
     - description
   - permission
 - setup monacoind
-- monacoinrpc.rb?
+  - register
+  - deposit
+  - payout
+  - give
+  - management
 - Cities
   - delete
   - union
@@ -26,7 +30,6 @@
   - Share
   - delete
 - Responses
-  - Create
   - Update
     - revisions / histories
   - Delete?

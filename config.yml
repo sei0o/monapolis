@@ -1,2 +1,7 @@
 github_client_id: <%= ENV["MONAPOLIS_GITHUB_CLIENT_ID"] %>
 github_client_secret: <%= ENV["MONAPOLIS_GITHUB_CLIENT_SECRET"] %>
+monacoind_user: <%= ENV["MONAPOLIS_MONACOIND_USER"] %>
+monacoind_password: <%= ENV["MONAPOLIS_MONACOIND_PASSWORD"] %>
+monacoind_host: <%= ENV["MONAPOLIS_MONACOIND_HOST"] %>
+monacoind_port: <%= ENV["MONAPOLIS_MONACOIND_PORT"] %>
+wallet_address_prefix: monapolis_

@@ -8,6 +8,7 @@ require 'bcrypt'
 require 'i18n'
 require 'unirest'
 require 'octokit'
+require 'monacoin_client'
 require_relative 'models/user'
 require_relative 'models/city'
 require_relative 'models/topic'
@@ -23,6 +24,7 @@ class Monapolis < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
     set :config, YAML.load( ERB.new(File.read("config.yml")).result )
+    set :wallet, MonacoinRPC.new("http://#{config["monacoind_user"]}:#{config["monacoind_password"]}@#{config["monacoind_host"]}:#{config["monacoind_port"]}")
   end
 
   configure do
@@ -75,11 +77,13 @@ class Monapolis < Sinatra::Base
   end
 
   post "/register" do
-    user = User.new name: params[:name].downcase
+    user = User.new name: params[:name].downcase, wallet_address: settings.wallet.getnewaddress
 
     if user.validate_password_length params[:password]
       user.hash_password params[:password]
       if user.save
+        settings.wallet.setaccount user.wallet_address, user.wallet_account
+
         flash[:notice] = t "user.request_login"
         redirect "/login"
       else
@@ -141,10 +145,13 @@ class Monapolis < Sinatra::Base
         name: github.user.name,
         github_name: github.user.name,
         password: "none",
-        password_salt: "none"
+        password_salt: "none",
+        wallet_address: settings.wallet.getnewaddress
       )
 
       if u.save
+        settings.wallet.setaccount u.wallet_address, u.wallet_account
+
         flash[:success] = t "user.auth_succeeded"
         session[:user_name] = u.name
         redirect "/#{u.name}"
@@ -177,6 +184,12 @@ class Monapolis < Sinatra::Base
       flash[:warning] = t "user.wtf"
       redirect back
     end
+  end
+
+  get "/deposit" do
+    user_only
+
+    slim :deposit
   end
 
   get "/c" do
