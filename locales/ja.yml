@@ -15,10 +15,14 @@ ja:
   response:
     post_failed: "投稿に失敗しました。"
     post_succeeded: "投稿しました。"
+  receipt:
+    create_succeeded: "処理に成功しました。"
+    create_failed: "処理に失敗しました。"
   activerecord:
     models:
       user: ユーザー
       city: city
+      tip: 投げ銭
     attributes:
       user:
         name: ユーザー名
@@ -28,8 +32,13 @@ ja:
         code: cityコード
       response:
         body: 本文
+      receipt:
+        amount: 金額
+        kind: 区分
     errors:
       messages:
         blank: "が入力されていません。"
         invalid: "が不正な値です。"
         taken: "はすでに使用されています。"
+        greater_than: "は%{count}より大きくなければなりません。"
+        insufficient_balance: "残高不足です。"

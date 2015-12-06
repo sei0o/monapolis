@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   @@wallet = MonacoinRPC.new("http://#{@@config["monacoind_user"]}:#{@@config["monacoind_password"]}@#{@@config["monacoind_host"]}:#{@@config["monacoind_port"]}")
 
   has_many :responses
+  has_many :receipts_as_sender, class_name: "Receipt", foreign_key: "sender_user_id"
+  has_many :receipts_as_receiver, class_name: "Receipt", foreign_key: "receiver_user_id"
 
   validates :name, presence: true, uniqueness: true
   validates :password, presence: true
@@ -33,7 +35,14 @@ class User < ActiveRecord::Base
     @@config["wallet_address_prefix"] + self.name
   end
 
-  def balance confirmed = 6
+  def wallet_balance confirmed = 0
     @@wallet.getbalance self.wallet_account, confirmed
+  end
+
+  def balance
+    paid = receipts_as_sender.inject(0.0) { |sum, receipt| sum + receipt.amount }
+    got = receipts_as_receiver.inject(0.0) { |sum, receipt| sum + receipt.amount }
+
+    got - paid
   end
 end

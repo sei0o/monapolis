@@ -47,15 +47,15 @@ body
       height 3rem
       line-height 3rem
       transition .3s
+      padding 0 20px
       &:hover
         background-color #6491cc
-  a
-    display inline-block
-    width 100%
-    padding 0 20px
-    &, &:link, &:visited, &:focus, &:active, &:hover
-      color white
-      text-decoration none
+      a
+        display inline-block
+        width 100%
+        &, &:link, &:visited, &:focus, &:active, &:hover
+          color white
+          text-decoration none
 
 #page_navbar
   display block
@@ -115,13 +115,16 @@ main
 .response
   margin-top 2rem
   header
+    span
+      margin-right 10px
     .response_id
       box-sizing border-box
       background-color #345e96
       color white
       padding 5px
       border-radius 3px
-      margin-right 10px
+    form
+      display inline
   div
     margin-top 1rem
     margin-left 1rem

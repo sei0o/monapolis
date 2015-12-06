@@ -16,11 +16,9 @@
     - description
   - permission
 - setup monacoind
-  - register
-  - deposit
-  - payout
-  - give
+  - withdraw
   - management
+  - unified account
 - Cities
   - delete
   - union
@@ -40,3 +38,6 @@
   - sage/age
 - API
 - i18n
+- security / vulnerability
+- http://ruby-rails.hatenadiary.com/entry/20140724/1406145303#model-validation-by-myself
+  - changing validation

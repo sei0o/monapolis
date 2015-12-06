@@ -4,6 +4,7 @@ require 'sinatra/flash'
 require 'active_record'
 require 'yaml'
 require 'erb'
+require 'json'
 require 'bcrypt'
 require 'i18n'
 require 'unirest'
@@ -13,6 +14,8 @@ require_relative 'models/user'
 require_relative 'models/city'
 require_relative 'models/topic'
 require_relative 'models/response'
+require_relative 'models/receipt'
+require_relative 'check_deposit'
 
 I18n.load_path += Dir[File.join(File.dirname(__FILE__), 'locales', '*.yml').to_s]
 I18n.default_locale = :ja
@@ -21,15 +24,13 @@ db_config = YAML.load ERB.new(File.read("database.yml")).result
 ActiveRecord::Base.establish_connection db_config["development"]
 
 class Monapolis < Sinatra::Base
-  configure :development do
-    register Sinatra::Reloader
-    set :config, YAML.load( ERB.new(File.read("config.yml")).result )
-    set :wallet, MonacoinRPC.new("http://#{config["monacoind_user"]}:#{config["monacoind_password"]}@#{config["monacoind_host"]}:#{config["monacoind_port"]}")
-  end
-
   configure do
+    register Sinatra::Reloader
     enable :sessions
     register Sinatra::Flash
+    DepositChecker.new.watch
+    set :config, YAML.load( ERB.new(File.read("config.yml")).result )
+    set :wallet, MonacoinRPC.new("http://#{config["monacoind_user"]}:#{config["monacoind_password"]}@#{config["monacoind_host"]}:#{config["monacoind_port"]}")
   end
 
   helpers do
@@ -50,8 +51,12 @@ class Monapolis < Sinatra::Base
 
     def user_only
       unless login?
-        flash[:warning] = t "user.request_login"
-        redirect "/login"
+        if block_given?
+          yield
+        else
+          flash[:warning] = t "user.request_login"
+          redirect "/login"
+        end
       end
     end
 
@@ -175,6 +180,7 @@ class Monapolis < Sinatra::Base
     user = login_user
 
     user.name = params[:name].downcase
+    settings.wallet.setaccount user.wallet_address, user.wallet_account
 
     if user.save
       session[:user_name] = user.name
@@ -252,6 +258,35 @@ class Monapolis < Sinatra::Base
     else
       flash[:warning] = topic.errors.full_messages
       redirect back
+    end
+  end
+
+  post "/c/:code/:id/tip/:r_id" do |code, topic_id, response_id|
+    user_only do
+      halt t "user.request_login"
+    end
+    content_type :json
+
+    response = Response.find response_id
+
+    receipt = Receipt.new(
+      amount: params[:amount].to_f,
+      sender_user_id: login_user.id,
+      receiver_user_id: response.user,
+      receiver_response_id: response.id,
+      kind: :tip_response
+    )
+
+    if receipt.save
+      {
+        success: t("receipt.create_succeeded"),
+        after: response.received_mona
+      }.to_json
+    else
+      {
+        error: receipt.errors.full_messages,
+        after: response.received_mona
+      }.to_json
     end
   end
 

@@ -54,21 +54,21 @@ body {
   height: 3rem;
   line-height: 3rem;
   transition: 0.3s;
+  padding: 0 20px;
 }
 #user_navbar ul li:hover {
   background-color: #6491cc;
 }
-#user_navbar a {
+#user_navbar ul li a {
   display: inline-block;
   width: 100%;
-  padding: 0 20px;
 }
-#user_navbar a,
-#user_navbar a:link,
-#user_navbar a:visited,
-#user_navbar a:focus,
-#user_navbar a:active,
-#user_navbar a:hover {
+#user_navbar ul li a,
+#user_navbar ul li a:link,
+#user_navbar ul li a:visited,
+#user_navbar ul li a:focus,
+#user_navbar ul li a:active,
+#user_navbar ul li a:hover {
   color: #fff;
   text-decoration: none;
 }
@@ -150,13 +150,18 @@ main {
 .response {
   margin-top: 2rem;
 }
+.response header span {
+  margin-right: 10px;
+}
 .response header .response_id {
   box-sizing: border-box;
   background-color: #345e96;
   color: #fff;
   padding: 5px;
   border-radius: 3px;
-  margin-right: 10px;
+}
+.response header form {
+  display: inline;
 }
 .response div {
   margin-top: 1rem;

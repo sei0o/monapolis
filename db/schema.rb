@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111073926) do
+ActiveRecord::Schema.define(version: 20151206154614) do
 
   create_table "cities", force: :cascade do |t|
     t.string   "name",        limit: 255,   null: false
@@ -24,13 +24,22 @@ ActiveRecord::Schema.define(version: 20151111073926) do
   add_index "cities", ["code"], name: "index_cities_on_code", unique: true, using: :btree
   add_index "cities", ["name"], name: "index_cities_on_name", unique: true, using: :btree
 
+  create_table "receipts", force: :cascade do |t|
+    t.integer  "sender_user_id",       limit: 4
+    t.integer  "receiver_user_id",     limit: 4
+    t.integer  "receiver_response_id", limit: 4
+    t.decimal  "amount",                         precision: 15, scale: 8, default: 0.0, null: false
+    t.integer  "kind",                 limit: 4,                                        null: false
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
+  end
+
   create_table "responses", force: :cascade do |t|
-    t.text     "body",          limit: 65535,                                        null: false
-    t.decimal  "received_mona",               precision: 15, scale: 8, default: 0.0, null: false
-    t.integer  "user_id",       limit: 4,                                            null: false
-    t.integer  "topic_id",      limit: 4,                                            null: false
-    t.datetime "created_at",                                                         null: false
-    t.datetime "updated_at",                                                         null: false
+    t.text     "body",       limit: 65535, null: false
+    t.integer  "user_id",    limit: 4,     null: false
+    t.integer  "topic_id",   limit: 4,     null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "topics", force: :cascade do |t|

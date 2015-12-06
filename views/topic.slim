@@ -2,13 +2,43 @@ h1 = @topic.title
 
 ul#responses
   - @responses.each.with_index(1) do |r, i|
-    li.response
+    li.response data-id="#{r.id}"
       header
         span.response_id = i
         span.response_name = r.user.name
+        span.received_mona = r.received_mona.to_s + "Mona"
+        - if login?
+          form.tip_form action="/c/#{@city.code}/#{@topic.id}/tip/#{r.id}" method="POST"
+            input type="number" step="0.01" name="amount" 
+            input type="submit" value="投げる"
+          span.tip_success
+          span.tip_error
       div == escape_nl2br(r.body)
       
 form action="/c/#{@city.code}/#{@topic.id}/response" method="POST"
   textarea name="body" placeholder="MonapolisってFacebookのにおいがする" cols="50" rows="5" required="required"
   br
   input type="submit" value="投稿"
+
+javascript:
+  $(function(){
+    $(".tip_form").on("submit", function(e){
+      e.preventDefault();
+      var rid = $(this).parent().parent().data("id");
+      
+      $.post($(this).attr("action"), {
+        "amount": $(this).find("[name='amount']").val()
+      }, function(data){
+        var respElm = $(".response[data-id="+ rid +"]");
+      
+        respElm.find(".received_mona").html(data["after"] + "Mona");
+        if(data["success"]){
+          respElm.find(".tip_success").html(data["success"]);
+          respElm.find(".tip_error").html("");
+        }else if(data["error"]){
+          respElm.find(".tip_success").html("");
+          respElm.find(".tip_error").html(data["error"]);
+        }
+      });
+    })
+  });
