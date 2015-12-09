@@ -4,4 +4,6 @@ monacoind_user: <%= ENV["MONAPOLIS_MONACOIND_USER"] %>
 monacoind_password: <%= ENV["MONAPOLIS_MONACOIND_PASSWORD"] %>
 monacoind_host: <%= ENV["MONAPOLIS_MONACOIND_HOST"] %>
 monacoind_port: <%= ENV["MONAPOLIS_MONACOIND_PORT"] %>
+monacoind_wallet_passphrase: <%= ENV["MONAPOLIS_MONACOIND_WALLET_PASSPHRASE"] %>
 wallet_address_prefix: monapolis_
+shared_wallet: monapolis

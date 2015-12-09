@@ -15,10 +15,8 @@
     - address
     - description
   - permission
-- setup monacoind
-  - withdraw
+- monacoind
   - management
-  - unified account
 - Cities
   - delete
   - union

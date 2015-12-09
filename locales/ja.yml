@@ -18,6 +18,9 @@ ja:
   receipt:
     create_succeeded: "処理に成功しました。"
     create_failed: "処理に失敗しました。"
+  withdraw:
+    failed: "出金に失敗しました。"
+    succeeded: "出金に成功しました。"
   activerecord:
     models:
       user: ユーザー

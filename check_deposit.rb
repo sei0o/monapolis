@@ -25,12 +25,11 @@ class DepositChecker
 
   def check_wallet
     User.all.each do |user|
-      puts user.wallet_balance
       if user.wallet_balance > 0
         Receipt.create receiver_user_id: user.id, amount: user.wallet_balance, kind: :deposit
 
         # 共用addressにmove
-        @wallet.move user.wallet_account, "monapolis", user.wallet_balance
+        @wallet.move user.wallet_account, @config["shared_wallet"], user.wallet_balance
       end
     end
   end

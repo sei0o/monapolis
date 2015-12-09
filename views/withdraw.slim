@@ -1,0 +1,8 @@
+form action="/withdraw" method="POST"
+  input type="text" placeholder="MSeioocvxxaVJBfJHSa1LLnwX8jF9gCKF8" name="address" class="wallet_address_field"
+  br
+  input type="number" name="amount" list="amount_list" min="0.001" step="0.001" required="required"
+  datalist id="amount_list"
+    option value="#{login_user.balance}"
+  br
+  input type="submit" text="出金"

@@ -170,3 +170,6 @@ main {
 .wallet_address {
   font-size: 200%;
 }
+.wallet_address_field {
+  width: 300px;
+}

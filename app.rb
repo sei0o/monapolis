@@ -63,6 +63,15 @@ class Monapolis < Sinatra::Base
     def escape_nl2br str
       escape_html(str).gsub(/\r\n|\n|\r/, "<br>")
     end
+
+    def unlock_wallet
+      begin
+        settings.wallet.walletpassphrase(settings.config["monacoind_wallet_passphrase"], 10)
+        yield
+      ensure
+        settings.wallet.walletlock
+      end
+    end
   end
 
   before do
@@ -196,6 +205,38 @@ class Monapolis < Sinatra::Base
     user_only
 
     slim :deposit
+  end
+
+  get "/withdraw" do
+    user_only
+
+    slim :withdraw
+  end
+
+  post "/withdraw" do
+    user_only
+
+    receipt = Receipt.new sender_user_id: login_user.id, amount: params[:amount].to_f, kind: :withdraw
+    if receipt.save
+      txid = ""
+      begin
+        unlock_wallet do
+          txid = settings.wallet.sendfrom settings.config["shared_wallet"], params[:address], receipt.amount.to_f
+        end
+      rescue => e
+        receipt.destroy
+      end
+
+      if txid.empty?
+        flash[:warning] = t "withdraw.failed"
+      else
+        flash[:success] = t "withdraw.succeeded" + " txid: #{txid}"
+      end
+    else
+      flash[:warning] = t "withdraw.failed"
+    end
+
+    redirect back
   end
 
   get "/c" do
