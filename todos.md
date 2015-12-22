@@ -2,6 +2,22 @@
 
 - partial template
 - friendly forwarding
+- Contents
+  - index.slim
+- UI
+  - layout
+  - cities
+  - city
+  - deposit
+  - index
+  - login
+  - new_city
+  - new_topic
+  - register
+  - settings
+  - Topic
+  - User
+  - withdraw
 - User
   - reputation?
   - obi
@@ -36,6 +52,9 @@
   - sage/age
 - API
 - i18n
+- let's encrypt
 - security / vulnerability
+- database.yml / config.yml
+  - env? plain?
 - http://ruby-rails.hatenadiary.com/entry/20140724/1406145303#model-validation-by-myself
   - changing validation

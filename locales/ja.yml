@@ -12,6 +12,7 @@ ja:
   topic:
     create_failed: "トピック作成に失敗しました。"
     create_succeeded: "トピック作成に成功しました。"
+    create: "新規トピック"
   response:
     post_failed: "投稿に失敗しました。"
     post_succeeded: "投稿しました。"

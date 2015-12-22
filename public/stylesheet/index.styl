@@ -1,3 +1,10 @@
+dark = #27466f
+little_dark = #345e96
+normal = #4076bd
+light = #6491cc
+invert_text = white
+body_background = #89acd9
+
 html, body
   height 100%
   margin 0
@@ -5,15 +12,18 @@ html, body
 
 a
   &, &:link, &:visited
-    color #6491cc
+    color light
     transition .2s
     text-decoration none
   &:hover, &:focus, &:active
-    color #345e96
+    color little_dark
     text-decoration underline
 
+table
+  margin 10px 0
+
 body
-  background-color #89acd9
+  background-color body_background
 
 #container
   width 80%
@@ -21,10 +31,10 @@ body
   background-color white
   //min-height 100%
   font-family "mplus-1p-regular", Helvetica, sans-serif
-  color #27466f
+  color dark
 
 #page_header
-  background-color #4076bd
+  background-color normal
   color white
   height 3rem
   padding 0 10px
@@ -32,6 +42,8 @@ body
 #brand
   display inline
   line-height 3rem
+  margin 0
+  padding 0
 
 #user_navbar
   display inline
@@ -47,12 +59,15 @@ body
       height 3rem
       line-height 3rem
       transition .3s
-      padding 0 20px
       &:hover
-        background-color #6491cc
+        background-color light
+      *
+        padding 0 20px
       a
         display inline-block
         width 100%
+        height 100%
+        padding 0 20px
         &, &:link, &:visited, &:focus, &:active, &:hover
           color white
           text-decoration none
@@ -66,14 +81,14 @@ body
       box-sizing border-box
       display inline-block
       width 33.33%
-      background-color #345e96
+      background-color little_dark
       height 1.5rem
       line-height 1.5rem
-      border-right solid 2px #27466f
+      border-right solid 2px dark
       text-align center
       transition .3s
       &:hover
-        background-color #6491cc
+        background-color light
   a
     display inline-block
     width 100%
@@ -86,7 +101,7 @@ body
   ul
     padding 0
     margin 0
-    background-color #4076bd
+    background-color normal
     li
       display inline-block
       height 1.5rem
@@ -94,16 +109,12 @@ body
       transition .3s
       padding 0 5px
       &:hover
-        background-color #6491cc
+        background-color light
   a
     display inline-block
     &, &:link, &:visited, &:focus, &:active, &:hover
       color white
       text-decoration none
-
-#brand
-  margin 0
-  padding 0
 
 main
   padding 10px
@@ -119,7 +130,7 @@ main
       margin-right 10px
     .response_id
       box-sizing border-box
-      background-color #345e96
+      background-color little_dark
       color white
       padding 5px
       border-radius 3px
@@ -134,3 +145,23 @@ main
 
 .wallet_address_field
   width 300px
+
+.btn
+  display inline-block
+  border-radius 3px
+  padding 10px
+  transition .3s
+  a&
+    text-decoration none
+  &.normal
+    border solid 1px light
+    color light
+    background-color white
+    &:hover
+      border-color little_dark
+      color little_dark
+  &.important
+    color invert_text
+    background-color normal
+    &:hover
+      background-color light

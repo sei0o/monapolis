@@ -17,6 +17,9 @@ a:active {
   color: #345e96;
   text-decoration: underline;
 }
+table {
+  margin: 10px 0;
+}
 body {
   background-color: #89acd9;
 }
@@ -36,6 +39,8 @@ body {
 #brand {
   display: inline;
   line-height: 3rem;
+  margin: 0;
+  padding: 0;
 }
 #user_navbar {
   display: inline;
@@ -54,14 +59,18 @@ body {
   height: 3rem;
   line-height: 3rem;
   transition: 0.3s;
-  padding: 0 20px;
 }
 #user_navbar ul li:hover {
   background-color: #6491cc;
 }
+#user_navbar ul li * {
+  padding: 0 20px;
+}
 #user_navbar ul li a {
   display: inline-block;
   width: 100%;
+  height: 100%;
+  padding: 0 20px;
 }
 #user_navbar ul li a,
 #user_navbar ul li a:link,
@@ -136,10 +145,6 @@ body {
   color: #fff;
   text-decoration: none;
 }
-#brand {
-  margin: 0;
-  padding: 0;
-}
 main {
   padding: 10px;
 }
@@ -172,4 +177,29 @@ main {
 }
 .wallet_address_field {
   width: 300px;
+}
+.btn {
+  display: inline-block;
+  border-radius: 3px;
+  padding: 10px;
+  transition: 0.3s;
+}
+a.btn {
+  text-decoration: none;
+}
+.btn.normal {
+  border: solid 1px #6491cc;
+  color: #6491cc;
+  background-color: #fff;
+}
+.btn.normal:hover {
+  border-color: #345e96;
+  color: #345e96;
+}
+.btn.important {
+  color: #fff;
+  background-color: #4076bd;
+}
+.btn.important:hover {
+  background-color: #6491cc;
 }

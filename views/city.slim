@@ -1,4 +1,6 @@
-h1 = @city.name
+h1 #{@city.name}&nbsp;/#{@city.code}
+
+a class="btn important" href="/c/#{@city.code}/new" #{t "topic.create"}
 
 table
   thead

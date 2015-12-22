@@ -15,7 +15,8 @@ html
             - if login?
               li
                 a href="/#{login_user.name}" = login_user.name
-              li #{login_user.balance} Mona
+              li 
+                span #{login_user.balance} Mona
               li
                 a href="/deposit" 入金
               li
