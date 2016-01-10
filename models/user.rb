@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def wallet_balance confirmed = 0
-    @@wallet.getbalance self.wallet_account, confirmed
+    @@wallet.getreceivedbyaddress self.wallet_address, confirmed
   end
 
   def balance
