@@ -185,11 +185,9 @@ class Monapolis < Sinatra::Base
 
   post "/settings" do
     user_only
-
     user = login_user
 
     user.name = params[:name].downcase
-    settings.wallet.setaccount user.wallet_address, user.wallet_account
 
     if user.save
       session[:user_name] = user.name
