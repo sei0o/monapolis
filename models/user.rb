@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   end
 
   def wallet_account
-    @@config["wallet_address_prefix"] + self.id
+    @@config["wallet_address_prefix"] + self.id.to_s
   end
 
   def wallet_balance confirmed = 0
