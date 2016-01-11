@@ -32,11 +32,11 @@ class User < ActiveRecord::Base
   end
 
   def wallet_account
-    @@config["wallet_address_prefix"] + self.name
+    @@config["wallet_address_prefix"] + self.id
   end
 
   def wallet_balance confirmed = 0
-    @@wallet.getreceivedbyaddress self.wallet_address, confirmed
+    @@wallet.getbalance self.wallet_account, confirmed
   end
 
   def balance
