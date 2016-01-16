@@ -263,11 +263,15 @@ class Monapolis < Sinatra::Base
   end
 
   get "/c/:code/new" do |code|
+    user_only
+
     @city = City.find_by code: code.downcase
     slim :new_topic
   end
 
   post "/c/:code/new" do |code|
+    user_only
+
     city = City.find_by code: code.downcase
     topic = Topic.new title: params[:title]
     topic.city = city
