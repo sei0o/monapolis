@@ -42,5 +42,11 @@ html
             li
               a href="/c/#{city.code}" = city.name
       main
-        == styled_flash
+        div id="flash"
+          - if flash[:success]
+            - flash[:success].each do |m|
+              div class="flash success" #{m}
+          - if flash[:warning]
+            - flash[:warning].each do |m|
+              div class="flash warning" #{m}
         == yield
