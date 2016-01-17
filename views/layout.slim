@@ -43,10 +43,14 @@ html
               a href="/c/#{city.code}" = city.name
       main
         div id="flash"
-          - if flash[:success]
+          - if flash[:success].is_a? Array
             - flash[:success].each do |m|
               div class="flash success" #{m}
-          - if flash[:warning]
+          - elsif flash[:success].is_a? String
+            div class="flash success" #{flash[:success]}
+          - if flash[:warning].is_a? Array
             - flash[:warning].each do |m|
               div class="flash warning" #{m}
+          - elsif flash[:warning].is_a? String
+            div class="flash warning" #{flash[:warning]}
         == yield
